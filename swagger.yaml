@@ -19,6 +19,7 @@ paths:
     get:
       tags:
         - Master
+      summary: 'ポケモン図鑑一覧取得'
       description: Returns all pokemons
       operationId: ''
       parameters: []
@@ -33,18 +34,19 @@ paths:
     get:
       tags:
         - Master
+      summary: 'ポケモン図鑑取得'
       description: Returns pokemons
       operationId: ''
       parameters:
         - name: zukanNo
           in: path
-          description: zukanNo of pokemons to fetch
+          description: 図鑑No
           required: true
           type: integer
           format: int64
         - name: subNo
           in: path
-          description: subNo of pokemons to fetch
+          description: サブNo
           required: true
           type: integer
           format: int64
@@ -55,53 +57,83 @@ paths:
             $ref: '#/definitions/Pokemon'
         '503': 
           description: Service Unavailable
+  /qualities:
+    get:
+      tags:
+        - Master
+      summary: '特性一覧取得'
+      description: Returns all qualities
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: pokemons response
+          schema:
+            $ref: '#/definitions/Qualities'
+        '503':
+          description: Service Unavailable
+  '/qualities/{qualityId}':
+    get:
+      tags:
+        - Master
+      summary: '特性取得'
+      description: Returns pokemons
+      operationId: ''
+      parameters:
+        - name: qualityId
+          in: path
+          description: 特性ID
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: pet response
+          schema:
+            $ref: '#/definitions/Quality'
+        '503': 
+          description: Service Unavailable
+  /skills:
+    get:
+      tags:
+        - Master
+      summary: '技一覧取得'
+      description: Returns all skills
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: pokemons response
+          schema:
+            $ref: '#/definitions/Skills'
+        '503':
+          description: Service Unavailable
+  '/skills/{skillId}':
+    get:
+      tags:
+        - Master
+      summary: '技取得'
+      description: Returns skills
+      operationId: ''
+      parameters:
+        - name: skillId
+          in: path
+          description: 技ID
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: pet response
+          schema:
+            $ref: '#/definitions/Skill'
+        '503': 
+          description: Service Unavailable
 definitions:
   Pokemons:
     type: array
     items:
-      properties: 
-        zukanNo:
-          type: integer
-          example: 1
-        subNo:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: 'フシギダネ'
-        type1:
-          type: string
-          example: 'くさ'
-        type2:
-          type: string
-          example: 'どく'
-        quality1:
-          type: string
-          example: 'しんりょく'
-        quality2:
-          type: string
-          example: ''
-        dreamQuality:
-          type: string
-          example: 'ようりょくそ'
-        hp:
-          type: integer
-          example: 45
-        at:
-          type: integer
-          example: 49
-        df:
-          type: integer
-          example: 49
-        sa:
-          type: integer
-          example: 65
-        sd:
-          type: integer
-          example: 65
-        sp:
-          type: integer
-          example: 45
+      $ref: '#/definitions/Pokemon'
   Pokemon:
     type: object
     properties:
@@ -147,3 +179,74 @@ definitions:
       sp:
         type: integer
         example: 45
+      megaFlg:
+        type: integer
+        example: 0
+  Qualities:
+    type: array
+    items:
+      $ref: '#/definitions/Quality'
+  Quality:
+    type: object
+    properties:
+      qualityId:
+        type: integer
+        example: 1
+      qualityName:
+        type: string
+        example: 'あめふらし'
+      effect:
+        type: string
+        example: 'てんきをあめ状態にする。'
+  Skills:
+    type: array
+    items:
+      $ref: '#/definitions/Skill'
+  Skill:
+    type: object
+    properties:
+      skillId:
+        type: integer
+        example: 1
+      skillName:
+        type: string
+        example: 'アームハンマー'
+      typeName:
+        type: string
+        example: 'ノーマル'
+      power:
+        type: integer
+        example: 90
+      pp:
+        type: integer
+        example: 10
+      classification:
+        type: string
+        example: '物理'
+      accuracy:
+        type: integer
+        example: 100
+      target:
+        type: string
+        example: '一体選択'
+      effect:
+        type: string
+        example: '攻撃後、自分の『すばやさ』ランクが1段階下がる。'
+      zeffect:
+        type: string
+        example: '技  ぜんりょくむそうげきれつけん(威力:180)'
+      directAttack:
+        type: string
+        example: '直×'
+      magicCoat:
+        type: string
+        example: '×'
+      omugaeshi:
+        type: string
+        example: 'できる'
+      yokodori:
+        type: string
+        example: '×'
+      migawarikantsu:
+        type: string
+        example: '通常'

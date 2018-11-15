@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: Swagger Pokémon
   description: Pokémon Restful API - 第7世代対応
 host: localhost
 basePath: /api/v1

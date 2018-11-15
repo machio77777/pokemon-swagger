@@ -1,12 +1,15 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: Swagger Pokémon Restful API
-  description: Pokémon Restful API - 第7世代対応 (https://github.com/machio77777/pokemon-api) 
+  title: Swagger Petstore
+  description: Pokémon Restful API - 第7世代対応
 host: localhost
 basePath: /api/v1
 tags:
   - name: Master
+    description: マスター用
+  - name: Training
+    description: 育成用
 schemes:
   - http
   - https
@@ -27,7 +30,9 @@ paths:
         '200':
           description: pokemons response
           schema:
-            $ref: '#/definitions/Pokemons'
+            type: array
+            items:
+              $ref: '#/definitions/Pokemon'
         '503':
           description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}':
@@ -57,6 +62,41 @@ paths:
             $ref: '#/definitions/Pokemon'
         '503': 
           description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/skills':
+    get:
+      tags:
+        - Master
+      summary: 'ポケモン別の覚える技一覧取得'
+      description: Returns all qualities
+      operationId: ''
+      parameters: 
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+        - name: skillId
+          in: query
+          description: 技ID
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: pokemons response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Quality'
+        '503':
+          description: Service Unavailable
   /qualities:
     get:
       tags:
@@ -69,7 +109,9 @@ paths:
         '200':
           description: pokemons response
           schema:
-            $ref: '#/definitions/Qualities'
+            type: array
+            items:
+              $ref: '#/definitions/Quality'
         '503':
           description: Service Unavailable
   '/qualities/{qualityId}':
@@ -105,7 +147,9 @@ paths:
         '200':
           description: pokemons response
           schema:
-            $ref: '#/definitions/Skills'
+            type: array
+            items:
+              $ref: '#/definitions/Skill'
         '503':
           description: Service Unavailable
   '/skills/{skillId}':
@@ -129,11 +173,118 @@ paths:
             $ref: '#/definitions/Skill'
         '503': 
           description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/roleTargets':
+    get:
+      tags:
+        - Training
+      summary: '役割対象一覧取得'
+      description: Returns Pokemons per roleTargets
+      operationId: ''
+      parameters: 
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: pet response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/roleTarget'
+        '503': 
+          description: Service Unavailable
+    post:
+      tags:
+        - Training
+      summary: '役割対象登録'
+      description: Add roleTargets
+      parameters: 
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/roleTarget'
+      responses:
+        200:
+          description: Success
+        400:
+          description: Validation Error
+          schema:
+            type: object
+        503:
+          description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/roleTargets/{targetId}':
+    put:
+      tags:
+        - Training
+      summary: '役割対象更新'
+      description: Update roleTarget
+      parameters: 
+        - name: zukanNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: targetId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/roleTarget'
+      responses:
+        200:
+          description: Success
+        400:
+          description: Validation Error
+          schema:
+            type: object
+        503:
+          description: Service Unavailable
+    delete:
+      tags:
+        - Training
+      summary: '役割対象削除'
+      description: Delete roleTarget
+      parameters: 
+        - name: zukanNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: targetId
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Success
+        503:
+          description: Service Unavailable
 definitions:
-  Pokemons:
-    type: array
-    items:
-      $ref: '#/definitions/Pokemon'
   Pokemon:
     type: object
     properties:
@@ -182,10 +333,6 @@ definitions:
       megaFlg:
         type: integer
         example: 0
-  Qualities:
-    type: array
-    items:
-      $ref: '#/definitions/Quality'
   Quality:
     type: object
     properties:
@@ -198,10 +345,6 @@ definitions:
       effect:
         type: string
         example: 'てんきをあめ状態にする。'
-  Skills:
-    type: array
-    items:
-      $ref: '#/definitions/Skill'
   Skill:
     type: object
     properties:
@@ -250,3 +393,16 @@ definitions:
       migawarikantsu:
         type: string
         example: '通常'
+  roleTarget:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 1
+      subNo:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: 'フシギダネ'
+        

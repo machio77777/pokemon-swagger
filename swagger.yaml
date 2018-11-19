@@ -22,7 +22,7 @@ paths:
     get:
       tags:
         - Master
-      summary: 'ポケモン図鑑一覧取得'
+      summary: ポケモン図鑑一覧取得
       description: Returns all pokemons
       operationId: ''
       parameters: []
@@ -39,7 +39,7 @@ paths:
     get:
       tags:
         - Master
-      summary: 'ポケモン図鑑取得'
+      summary: ポケモン図鑑取得
       description: Returns pokemons
       operationId: ''
       parameters:
@@ -60,16 +60,16 @@ paths:
           description: pet response
           schema:
             $ref: '#/definitions/Pokemon'
-        '503': 
+        '503':
           description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/skills':
     get:
       tags:
         - Master
-      summary: 'ポケモン別の覚える技一覧取得'
+      summary: ポケモン別の覚える技一覧取得
       description: Returns all qualities
       operationId: ''
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           description: 図鑑No
@@ -101,7 +101,7 @@ paths:
     get:
       tags:
         - Master
-      summary: '特性一覧取得'
+      summary: 特性一覧取得
       description: Returns all qualities
       operationId: ''
       parameters: []
@@ -118,7 +118,7 @@ paths:
     get:
       tags:
         - Master
-      summary: '特性取得'
+      summary: 特性取得
       description: Returns pokemons
       operationId: ''
       parameters:
@@ -133,13 +133,13 @@ paths:
           description: pet response
           schema:
             $ref: '#/definitions/Quality'
-        '503': 
+        '503':
           description: Service Unavailable
   /skills:
     get:
       tags:
         - Master
-      summary: '技一覧取得'
+      summary: 技一覧取得
       description: Returns all skills
       operationId: ''
       parameters: []
@@ -156,7 +156,7 @@ paths:
     get:
       tags:
         - Master
-      summary: '技取得'
+      summary: 技取得
       description: Returns skills
       operationId: ''
       parameters:
@@ -171,15 +171,14 @@ paths:
           description: pet response
           schema:
             $ref: '#/definitions/Skill'
-        '503': 
+        '503':
           description: Service Unavailable
-  '/pokemons/{zukanNo}/{subNo}/roleTargets':
+  '/pokemons/{zukanNo}/{subNo}/soldiers':
     get:
       tags:
         - Training
-      summary: '役割対象一覧取得'
-      description: Returns Pokemons per roleTargets
-      operationId: ''
+      summary: 対戦用育成済みポケモン一覧取得
+      description: Returns Pokemons For Battle
       parameters: 
         - name: zukanNo
           in: path
@@ -199,36 +198,234 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/roleTarget'
-        '503': 
+              type: array
+              items:
+                $ref: '#/definitions/soldier'
+        '503':
           description: Service Unavailable
     post:
       tags:
         - Training
-      summary: '役割対象登録'
-      description: Add roleTargets
+      summary: 対戦用育成済みポケモン登録
+      description: Add Pokemon For Battle
       parameters: 
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/soldier'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Validation Error
+          schema:
+            type: object
+        '503':
+          description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/soldiers/{soldierId}/{soldierSubId}':
+    get:
+      tags:
+        - Training
+      summary: 対戦用育成済みポケモン取得
+      description: Returns Pokemon For Battle
+      parameters: 
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+        - name: soldierId
+          in: path
+          description: 育成済みID
+          required: true
+          type: integer
+          format: int64
+        - name: soldierSubId
+          in: path
+          description: 育成済み明細ID
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: pet response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/soldier'
+        '503':
+          description: Service Unavailable
+    put:
+      tags:
+        - Training
+      summary: 対戦用育成済みポケモン更新
+      description: Update Pokemon For Battle
+      parameters: 
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+        - name: soldierId
+          in: path
+          description: 育成済みID
+          required: true
+          type: integer
+          format: int64
+        - name: soldierSubId
+          in: path
+          description: 育成済み明細ID
+          required: true
+          type: integer
+          format: int64
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/soldier'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Validation Error
+          schema:
+            type: object
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Training
+      summary: 対戦用育成済みポケモン削除
+      description: Delete Pokemon For Battle
+      parameters: 
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+        - name: soldierId
+          in: path
+          description: 育成済みID
+          required: true
+          type: integer
+          format: int64
+        - name: soldierSubId
+          in: path
+          description: 育成済み明細ID
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Validation Error
+          schema:
+            type: object
+        '503':
+          description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/roleTargets':
+    get:
+      tags:
+        - Training
+      summary: 役割対象一覧取得
+      description: Returns Pokemons per roleTargets
+      operationId: ''
+      parameters:
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: pet response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/roleTarget'
+        '503':
+          description: Service Unavailable
+    post:
+      tags:
+        - Training
+      summary: 役割対象登録
+      description: Add roleTargets
+      parameters:
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
         - name: body
           in: body
           required: true
           schema:
             $ref: '#/definitions/roleTarget'
       responses:
-        200:
+        '200':
           description: Success
-        400:
+        '400':
           description: Validation Error
           schema:
             type: object
-        503:
+        '503':
           description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/roleTargets/{targetId}':
     put:
       tags:
         - Training
-      summary: '役割対象更新'
+      summary: 役割対象更新
       description: Update roleTarget
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           required: true
@@ -250,20 +447,20 @@ paths:
           schema:
             $ref: '#/definitions/roleTarget'
       responses:
-        200:
+        '200':
           description: Success
-        400:
+        '400':
           description: Validation Error
           schema:
             type: object
-        503:
+        '503':
           description: Service Unavailable
     delete:
       tags:
         - Training
-      summary: '役割対象削除'
+      summary: 役割対象削除
       description: Delete roleTarget
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           required: true
@@ -280,9 +477,9 @@ paths:
           type: integer
           format: int64
       responses:
-        200:
+        '200':
           description: Success
-        503:
+        '503':
           description: Service Unavailable
 definitions:
   Pokemon:
@@ -296,22 +493,22 @@ definitions:
         example: 1
       name:
         type: string
-        example: 'フシギダネ'
+        example: フシギダネ
       type1:
         type: string
-        example: 'くさ'
+        example: くさ
       type2:
         type: string
-        example: 'どく'
+        example: どく
       quality1:
         type: string
-        example: 'しんりょく'
+        example: しんりょく
       quality2:
         type: string
         example: ''
       dreamQuality:
         type: string
-        example: 'ようりょくそ'
+        example: ようりょくそ
       hp:
         type: integer
         example: 45
@@ -341,10 +538,10 @@ definitions:
         example: 1
       qualityName:
         type: string
-        example: 'あめふらし'
+        example: あめふらし
       effect:
         type: string
-        example: 'てんきをあめ状態にする。'
+        example: てんきをあめ状態にする。
   Skill:
     type: object
     properties:
@@ -353,10 +550,10 @@ definitions:
         example: 1
       skillName:
         type: string
-        example: 'アームハンマー'
+        example: アームハンマー
       typeName:
         type: string
-        example: 'ノーマル'
+        example: ノーマル
       power:
         type: integer
         example: 90
@@ -365,34 +562,88 @@ definitions:
         example: 10
       classification:
         type: string
-        example: '物理'
+        example: 物理
       accuracy:
         type: integer
         example: 100
       target:
         type: string
-        example: '一体選択'
+        example: 一体選択
       effect:
         type: string
-        example: '攻撃後、自分の『すばやさ』ランクが1段階下がる。'
+        example: 攻撃後、自分の『すばやさ』ランクが1段階下がる。
       zeffect:
         type: string
         example: '技  ぜんりょくむそうげきれつけん(威力:180)'
       directAttack:
         type: string
-        example: '直×'
+        example: 直×
       magicCoat:
         type: string
-        example: '×'
+        example: ×
       omugaeshi:
         type: string
-        example: 'できる'
+        example: できる
       yokodori:
         type: string
-        example: '×'
+        example: ×
       migawarikantsu:
         type: string
-        example: '通常'
+        example: 通常
+  soldier:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 1
+      subNo:
+        type: integer
+        example: 1
+      soldier_sub_no:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: フシギダネ
+      personality:
+        type: string
+        example: いじっぱり
+      effort-hp:
+        type: integer
+        example: 252
+      effort-at:
+        type: integer
+        example: 252
+      effort-df:
+        type: integer
+        example: 252
+      effort-sa:
+        type: integer
+        example: 252
+      effort-sd:
+        type: integer
+        example: 252
+      effort-sp:
+        type: integer
+        example: 252
+      actual-hp:
+        type: integer
+        example: 152
+      actual-at:
+        type: integer
+        example: 111
+      actual-df:
+        type: integer
+        example: 111
+      actual-sa:
+        type: integer
+        example: 128
+      actual-sd:
+        type: integer
+        example: 128
+      actual-sp:
+        type: integer
+        example: 106
   roleTarget:
     type: object
     properties:
@@ -404,5 +655,4 @@ definitions:
         example: 1
       name:
         type: string
-        example: 'フシギダネ'
-        
+        example: フシギダネ

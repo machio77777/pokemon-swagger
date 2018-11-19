@@ -324,10 +324,6 @@ paths:
       responses:
         '200':
           description: Success
-        '400':
-          description: Validation Error
-          schema:
-            type: object
         '503':
           description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/roleTargets':
@@ -523,14 +519,14 @@ paths:
             type: object
         '503':
           description: Service Unavailable
-  '/pokemons/supports/{id}':
+  '/pokemons/supports/{supportId}':
     get:
       tags:
         - Battle
       summary: 相性補完取得
       operationId: ''
       parameters: 
-        - name: id
+        - name: supportId
           in: path
           required: true
           type: integer
@@ -550,7 +546,7 @@ paths:
       summary: 相性補完更新
       operationId: ''
       parameters: 
-        - name: id
+        - name: supportId
           in: path
           required: true
           type: integer
@@ -575,7 +571,7 @@ paths:
       summary: 相性補完削除
       operationId: ''
       parameters: 
-        - name: id
+        - name: supportId
           in: path
           required: true
           type: integer
@@ -697,7 +693,7 @@ definitions:
   Supports:
     type: object
     properties:
-      id:
+      supportId:
         type: integer
         example: 1
       name1:

@@ -10,6 +10,8 @@ tags:
     description: マスター用
   - name: Training
     description: 育成用
+  - name: Battle
+    description: 対戦用
 schemes:
   - http
   - https
@@ -200,7 +202,7 @@ paths:
             items:
               type: array
               items:
-                $ref: '#/definitions/soldier'
+                $ref: '#/definitions/Soldier'
         '503':
           description: Service Unavailable
     post:
@@ -225,7 +227,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/soldier'
+            $ref: '#/definitions/Soldier'
       responses:
         '200':
           description: Success
@@ -272,7 +274,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/soldier'
+              $ref: '#/definitions/Soldier'
         '503':
           description: Service Unavailable
     put:
@@ -309,7 +311,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/soldier'
+            $ref: '#/definitions/Soldier'
       responses:
         '200':
           description: Success
@@ -384,7 +386,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/roleTarget'
+              $ref: '#/definitions/RoleTarget'
         '503':
           description: Service Unavailable
     post:
@@ -409,7 +411,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/roleTarget'
+            $ref: '#/definitions/RoleTarget'
       responses:
         '200':
           description: Success
@@ -445,7 +447,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/roleTarget'
+            $ref: '#/definitions/RoleTarget'
       responses:
         '200':
           description: Success
@@ -479,6 +481,149 @@ paths:
       responses:
         '200':
           description: Success
+        '503':
+          description: Service Unavailable
+  /pokemons/supports:
+    get:
+      tags:
+        - Battle
+      summary: 相性補完リスト取得
+      description: ''
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: supports response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/Supports'
+        '503':
+          description: Service Unavailable
+    post:
+      tags:
+        - Battle
+      summary: 相性補完リスト取得
+      description: ''
+      operationId: ''
+      parameters: 
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Supports'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Validation Error
+          schema:
+            type: object
+        '503':
+          description: Service Unavailable
+  '/pokemons/supports/{id}':
+    get:
+      tags:
+        - Battle
+      summary: 相性補完取得
+      description: ''
+      operationId: ''
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: supports response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Supports'
+        '503':
+          description: Service Unavailable
+    put:
+      tags:
+        - Battle
+      summary: 相性補完更新
+      description: ''
+      operationId: ''
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Supports'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Validation Error
+          schema:
+            type: object
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Battle
+      summary: 相性補完削除
+      description: ''
+      operationId: ''
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: supports response
+        '503':
+          description: Service Unavailable
+  /pokemons/ranking/fireindex:
+    get:
+      tags:
+        - Battle
+      summary: 火力指数ランキング
+      description: Returns all Fire Index
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: pokemons response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/FireIndex'
+        '503':
+          description: Service Unavailable
+  /pokemons/ranking/enduranceindex:
+    get:
+      tags:
+        - Battle
+      summary: 耐久指数ランキング
+      description: Returns all Endurance Index
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: pokemons response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/Enduranceindex'
         '503':
           description: Service Unavailable
 definitions:
@@ -590,7 +735,49 @@ definitions:
       migawarikantsu:
         type: string
         example: 通常
-  soldier:
+  Supports:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      name1:
+        type: string
+        example: カプ・レヒレ
+      name2:
+        type: string
+        example: ナットレイ
+  FireIndex:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 9
+      subNo:
+        type: integer
+        example: 3
+      name: 
+        type: string
+        example: メガリザードンX
+      skillName:
+        type: string
+        example: フレアドライブ
+      index:
+        type: integer
+        example: 46800
+  Enduranceindex:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 9
+      subNo:
+        type: integer
+        example: 3
+      name: 
+        type: string
+        example: メガリザードンX
+  Soldier:
     type: object
     properties:
       zukanNo:
@@ -644,7 +831,7 @@ definitions:
       actual-sp:
         type: integer
         example: 106
-  roleTarget:
+  RoleTarget:
     type: object
     properties:
       zukanNo:

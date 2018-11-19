@@ -25,7 +25,6 @@ paths:
       tags:
         - Master
       summary: ポケモン図鑑一覧取得
-      description: Returns all pokemons
       operationId: ''
       parameters: []
       responses:
@@ -42,7 +41,6 @@ paths:
       tags:
         - Master
       summary: ポケモン図鑑取得
-      description: Returns pokemons
       operationId: ''
       parameters:
         - name: zukanNo
@@ -59,7 +57,7 @@ paths:
           format: int64
       responses:
         '200':
-          description: pet response
+          description: pokemon response
           schema:
             $ref: '#/definitions/Pokemon'
         '503':
@@ -69,7 +67,6 @@ paths:
       tags:
         - Master
       summary: ポケモン別の覚える技一覧取得
-      description: Returns all qualities
       operationId: ''
       parameters:
         - name: zukanNo
@@ -92,11 +89,11 @@ paths:
           format: int64
       responses:
         '200':
-          description: pokemons response
+          description: skills response
           schema:
             type: array
             items:
-              $ref: '#/definitions/Quality'
+              $ref: '#/definitions/Skill'
         '503':
           description: Service Unavailable
   /qualities:
@@ -104,12 +101,11 @@ paths:
       tags:
         - Master
       summary: 特性一覧取得
-      description: Returns all qualities
       operationId: ''
       parameters: []
       responses:
         '200':
-          description: pokemons response
+          description: qualities response
           schema:
             type: array
             items:
@@ -121,7 +117,6 @@ paths:
       tags:
         - Master
       summary: 特性取得
-      description: Returns pokemons
       operationId: ''
       parameters:
         - name: qualityId
@@ -132,7 +127,7 @@ paths:
           format: int64
       responses:
         '200':
-          description: pet response
+          description: quality response
           schema:
             $ref: '#/definitions/Quality'
         '503':
@@ -142,12 +137,11 @@ paths:
       tags:
         - Master
       summary: 技一覧取得
-      description: Returns all skills
       operationId: ''
       parameters: []
       responses:
         '200':
-          description: pokemons response
+          description: skills response
           schema:
             type: array
             items:
@@ -159,7 +153,6 @@ paths:
       tags:
         - Master
       summary: 技取得
-      description: Returns skills
       operationId: ''
       parameters:
         - name: skillId
@@ -170,7 +163,7 @@ paths:
           format: int64
       responses:
         '200':
-          description: pet response
+          description: skill response
           schema:
             $ref: '#/definitions/Skill'
         '503':
@@ -180,7 +173,6 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン一覧取得
-      description: Returns Pokemons For Battle
       parameters: 
         - name: zukanNo
           in: path
@@ -196,7 +188,7 @@ paths:
           format: int64
       responses:
         '200':
-          description: pet response
+          description: soldiers response
           schema:
             type: array
             items:
@@ -209,7 +201,6 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン登録
-      description: Add Pokemon For Battle
       parameters: 
         - name: zukanNo
           in: path
@@ -237,12 +228,11 @@ paths:
             type: object
         '503':
           description: Service Unavailable
-  '/pokemons/{zukanNo}/{subNo}/soldiers/{soldierId}/{soldierSubId}':
+  '/pokemons/{zukanNo}/{subNo}/soldiers/{soldierId}':
     get:
       tags:
         - Training
       summary: 対戦用育成済みポケモン取得
-      description: Returns Pokemon For Battle
       parameters: 
         - name: zukanNo
           in: path
@@ -262,15 +252,9 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: soldierSubId
-          in: path
-          description: 育成済み明細ID
-          required: true
-          type: integer
-          format: int64
       responses:
         '200':
-          description: pet response
+          description: soldier response
           schema:
             type: array
             items:
@@ -281,7 +265,6 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン更新
-      description: Update Pokemon For Battle
       parameters: 
         - name: zukanNo
           in: path
@@ -298,12 +281,6 @@ paths:
         - name: soldierId
           in: path
           description: 育成済みID
-          required: true
-          type: integer
-          format: int64
-        - name: soldierSubId
-          in: path
-          description: 育成済み明細ID
           required: true
           type: integer
           format: int64
@@ -325,7 +302,6 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン削除
-      description: Delete Pokemon For Battle
       parameters: 
         - name: zukanNo
           in: path
@@ -345,12 +321,6 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: soldierSubId
-          in: path
-          description: 育成済み明細ID
-          required: true
-          type: integer
-          format: int64
       responses:
         '200':
           description: Success
@@ -365,7 +335,6 @@ paths:
       tags:
         - Training
       summary: 役割対象一覧取得
-      description: Returns Pokemons per roleTargets
       operationId: ''
       parameters:
         - name: zukanNo
@@ -382,7 +351,7 @@ paths:
           format: int64
       responses:
         '200':
-          description: pet response
+          description: roleTargets response
           schema:
             type: array
             items:
@@ -393,7 +362,6 @@ paths:
       tags:
         - Training
       summary: 役割対象登録
-      description: Add roleTargets
       parameters:
         - name: zukanNo
           in: path
@@ -426,7 +394,6 @@ paths:
       tags:
         - Training
       summary: 役割対象更新
-      description: Update roleTarget
       parameters:
         - name: zukanNo
           in: path
@@ -461,7 +428,6 @@ paths:
       tags:
         - Training
       summary: 役割対象削除
-      description: Delete roleTarget
       parameters:
         - name: zukanNo
           in: path
@@ -483,12 +449,47 @@ paths:
           description: Success
         '503':
           description: Service Unavailable
+  /pokemons/ranking/fireindex:
+    get:
+      tags:
+        - Battle
+      summary: 火力指数ランキング
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: fireindex response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/FireIndex'
+        '503':
+          description: Service Unavailable
+  /pokemons/ranking/enduranceindex:
+    get:
+      tags:
+        - Battle
+      summary: 耐久指数ランキング
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: enduranceindex response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/Enduranceindex'
+        '503':
+          description: Service Unavailable
   /pokemons/supports:
     get:
       tags:
         - Battle
       summary: 相性補完リスト取得
-      description: ''
       operationId: ''
       parameters: []
       responses:
@@ -506,7 +507,6 @@ paths:
       tags:
         - Battle
       summary: 相性補完リスト取得
-      description: ''
       operationId: ''
       parameters: 
         - name: body
@@ -528,7 +528,6 @@ paths:
       tags:
         - Battle
       summary: 相性補完取得
-      description: ''
       operationId: ''
       parameters: 
         - name: id
@@ -538,7 +537,7 @@ paths:
           format: int64
       responses:
         '200':
-          description: supports response
+          description: support response
           schema:
             type: array
             items:
@@ -549,7 +548,6 @@ paths:
       tags:
         - Battle
       summary: 相性補完更新
-      description: ''
       operationId: ''
       parameters: 
         - name: id
@@ -575,7 +573,6 @@ paths:
       tags:
         - Battle
       summary: 相性補完削除
-      description: ''
       operationId: ''
       parameters: 
         - name: id
@@ -586,44 +583,6 @@ paths:
       responses:
         '200':
           description: supports response
-        '503':
-          description: Service Unavailable
-  /pokemons/ranking/fireindex:
-    get:
-      tags:
-        - Battle
-      summary: 火力指数ランキング
-      description: Returns all Fire Index
-      operationId: ''
-      parameters: []
-      responses:
-        '200':
-          description: pokemons response
-          schema:
-            type: array
-            items:
-              type: array
-              items:
-                $ref: '#/definitions/FireIndex'
-        '503':
-          description: Service Unavailable
-  /pokemons/ranking/enduranceindex:
-    get:
-      tags:
-        - Battle
-      summary: 耐久指数ランキング
-      description: Returns all Endurance Index
-      operationId: ''
-      parameters: []
-      responses:
-        '200':
-          description: pokemons response
-          schema:
-            type: array
-            items:
-              type: array
-              items:
-                $ref: '#/definitions/Enduranceindex'
         '503':
           description: Service Unavailable
 definitions:
@@ -786,7 +745,7 @@ definitions:
       subNo:
         type: integer
         example: 1
-      soldier_sub_no:
+      soldierId:
         type: integer
         example: 1
       name:

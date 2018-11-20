@@ -31,9 +31,7 @@ paths:
         '200':
           description: pokemons response
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Pokemon'
+            $ref: '#/definitions/Pokemons'
         '503':
           description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}':
@@ -107,9 +105,7 @@ paths:
         '200':
           description: qualities response
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Quality'
+            $ref: '#/definitions/Qualities'
         '503':
           description: Service Unavailable
   '/qualities/{qualityId}':
@@ -143,9 +139,7 @@ paths:
         '200':
           description: skills response
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Skill'
+            $ref: '#/definitions/Skills'
         '503':
           description: Service Unavailable
   '/skills/{skillId}':
@@ -582,6 +576,20 @@ paths:
         '503':
           description: Service Unavailable
 definitions:
+  Pokemons:
+    type: array
+    items:
+      type: object
+      properties:
+        zukanNo:
+          type: integer
+          example: 1
+        subNo:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: フシギダネ
   Pokemon:
     type: object
     properties:
@@ -630,6 +638,17 @@ definitions:
       megaFlg:
         type: integer
         example: 0
+  Qualities:
+    type: array
+    items:
+      type: object
+      properties:
+        qualityId:
+          type: integer
+          example: 1
+        qualityName:
+          type: string
+          example: あめふらし  
   Quality:
     type: object
     properties:
@@ -642,6 +661,17 @@ definitions:
       effect:
         type: string
         example: てんきをあめ状態にする。
+  Skills:
+    type: array
+    items:
+      type: object
+      properties:
+        skillId:
+          type: integer
+          example: 1
+        skillName:
+          type: string
+          example: アームハンマー
   Skill:
     type: object
     properties:

@@ -60,40 +60,6 @@ paths:
             $ref: '#/definitions/Pokemon'
         '503':
           description: Service Unavailable
-  '/pokemons/{zukanNo}/{subNo}/skills':
-    get:
-      tags:
-        - Master
-      summary: ポケモン別の覚える技一覧取得
-      operationId: ''
-      parameters:
-        - name: zukanNo
-          in: path
-          description: 図鑑No
-          required: true
-          type: integer
-          format: int64
-        - name: subNo
-          in: path
-          description: サブNo
-          required: true
-          type: integer
-          format: int64
-        - name: skillId
-          in: query
-          description: 技ID
-          required: false
-          type: integer
-          format: int64
-      responses:
-        '200':
-          description: skills response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Skill'
-        '503':
-          description: Service Unavailable
   /qualities:
     get:
       tags:
@@ -162,12 +128,44 @@ paths:
             $ref: '#/definitions/Skill'
         '503':
           description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/skills':
+    get:
+      tags:
+        - Master
+      summary: ポケモン別の覚える技一覧取得
+      operationId: ''
+      parameters:
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+        - name: skillId
+          in: query
+          description: 技ID
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: skills response
+          schema:
+            $ref: '#/definitions/Skills'
+        '503':
+          description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/soldiers':
     get:
       tags:
         - Training
       summary: 対戦用育成済みポケモン一覧取得
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           description: 図鑑No
@@ -195,7 +193,7 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン登録
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           description: 図鑑No
@@ -212,7 +210,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/Soldier'
+            $ref: '#/definitions/SoldierInput'
       responses:
         '200':
           description: Success
@@ -227,7 +225,7 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン取得
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           description: 図鑑No
@@ -259,7 +257,7 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン更新
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           description: 図鑑No
@@ -282,7 +280,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/Soldier'
+            $ref: '#/definitions/SoldierInput'
       responses:
         '200':
           description: Success
@@ -296,7 +294,7 @@ paths:
       tags:
         - Training
       summary: 対戦用育成済みポケモン削除
-      parameters: 
+      parameters:
         - name: zukanNo
           in: path
           description: 図鑑No
@@ -498,7 +496,7 @@ paths:
         - Battle
       summary: 相性補完リスト取得
       operationId: ''
-      parameters: 
+      parameters:
         - name: body
           in: body
           required: true
@@ -519,7 +517,7 @@ paths:
         - Battle
       summary: 相性補完取得
       operationId: ''
-      parameters: 
+      parameters:
         - name: supportId
           in: path
           required: true
@@ -539,7 +537,7 @@ paths:
         - Battle
       summary: 相性補完更新
       operationId: ''
-      parameters: 
+      parameters:
         - name: supportId
           in: path
           required: true
@@ -564,7 +562,7 @@ paths:
         - Battle
       summary: 相性補完削除
       operationId: ''
-      parameters: 
+      parameters:
         - name: supportId
           in: path
           required: true
@@ -648,7 +646,7 @@ definitions:
           example: 1
         qualityName:
           type: string
-          example: あめふらし  
+          example: あめふらし
   Quality:
     type: object
     properties:
@@ -741,7 +739,7 @@ definitions:
       subNo:
         type: integer
         example: 3
-      name: 
+      name:
         type: string
         example: メガリザードンX
       skillName:
@@ -759,7 +757,7 @@ definitions:
       subNo:
         type: integer
         example: 3
-      name: 
+      name:
         type: string
         example: メガリザードンX
   Soldier:
@@ -780,40 +778,121 @@ definitions:
       personality:
         type: string
         example: いじっぱり
-      effort-hp:
+      qualityName:
+        type: string
+        example: しんりょく
+      skillName1:
+        type: string
+        example: たいあたり
+      skillName2:
+        type: string
+        example: なきごえ
+      skillName3:
+        type: string
+        example: やどりぎのたね
+      skillName4:
+        type: string
+        example: つるのむち
+      ehp:
         type: integer
         example: 252
-      effort-at:
+      eat:
         type: integer
         example: 252
-      effort-df:
+      edf:
         type: integer
         example: 252
-      effort-sa:
+      esa:
         type: integer
         example: 252
-      effort-sd:
+      esd:
         type: integer
         example: 252
-      effort-sp:
+      esp:
         type: integer
         example: 252
-      actual-hp:
+      ahp:
         type: integer
         example: 152
-      actual-at:
+      aat:
         type: integer
         example: 111
-      actual-df:
+      adf:
         type: integer
         example: 111
-      actual-sa:
+      asa:
         type: integer
         example: 128
-      actual-sd:
+      asd:
         type: integer
         example: 128
-      actual-sp:
+      asp:
+        type: integer
+        example: 106
+  SoldierInput:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 1
+      subNo:
+        type: integer
+        example: 1
+      soldierId:
+        type: integer
+        example: 1
+      personality:
+        type: string
+        example: いじっぱり
+      qualityId:
+        type: integer
+        example: 1
+      skillId1:
+        type: integer
+        example: 1
+      skillId2:
+        type: integer
+        example: 1
+      skillId3:
+        type: integer
+        example: 1
+      skillId4:
+        type: integer
+        example: 1
+      ehp:
+        type: integer
+        example: 252
+      eat:
+        type: integer
+        example: 252
+      edf:
+        type: integer
+        example: 252
+      esa:
+        type: integer
+        example: 252
+      esd:
+        type: integer
+        example: 252
+      esp:
+        type: integer
+        example: 252
+      ahp:
+        type: integer
+        example: 152
+      aat:
+        type: integer
+        example: 111
+      adf:
+        type: integer
+        example: 111
+      asa:
+        type: integer
+        example: 128
+      asd:
+        type: integer
+        example: 128
+      asp:
         type: integer
         example: 106
   RoleTarget:

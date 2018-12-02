@@ -437,42 +437,6 @@ paths:
           description: Success
         '503':
           description: Service Unavailable
-  /pokemons/ranking/fireindex:
-    get:
-      tags:
-        - Battle
-      summary: 火力指数ランキング
-      operationId: ''
-      parameters: []
-      responses:
-        '200':
-          description: fireindex response
-          schema:
-            type: array
-            items:
-              type: array
-              items:
-                $ref: '#/definitions/FireIndex'
-        '503':
-          description: Service Unavailable
-  /pokemons/ranking/enduranceindex:
-    get:
-      tags:
-        - Battle
-      summary: 耐久指数ランキング
-      operationId: ''
-      parameters: []
-      responses:
-        '200':
-          description: enduranceindex response
-          schema:
-            type: array
-            items:
-              type: array
-              items:
-                $ref: '#/definitions/Enduranceindex'
-        '503':
-          description: Service Unavailable
   /pokemons/supports:
     get:
       tags:
@@ -730,36 +694,6 @@ definitions:
       name2:
         type: string
         example: ナットレイ
-  FireIndex:
-    type: object
-    properties:
-      zukanNo:
-        type: integer
-        example: 9
-      subNo:
-        type: integer
-        example: 3
-      name:
-        type: string
-        example: メガリザードンX
-      skillName:
-        type: string
-        example: フレアドライブ
-      index:
-        type: integer
-        example: 46800
-  Enduranceindex:
-    type: object
-    properties:
-      zukanNo:
-        type: integer
-        example: 9
-      subNo:
-        type: integer
-        example: 3
-      name:
-        type: string
-        example: メガリザードンX
   Soldier:
     type: object
     properties:

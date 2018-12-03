@@ -476,26 +476,6 @@ paths:
         '503':
           description: Service Unavailable
   '/pokemons/supports/{supportId}':
-    get:
-      tags:
-        - Battle
-      summary: 相性補完取得
-      operationId: ''
-      parameters:
-        - name: supportId
-          in: path
-          required: true
-          type: integer
-          format: int64
-      responses:
-        '200':
-          description: support response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Supports'
-        '503':
-          description: Service Unavailable
     put:
       tags:
         - Battle

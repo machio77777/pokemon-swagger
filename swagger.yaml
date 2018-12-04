@@ -8,8 +8,6 @@ basePath: /api/v1
 tags:
   - name: Master
     description: マスター用
-  - name: Training
-    description: 育成用
   - name: Battle
     description: 対戦用
 schemes:
@@ -160,10 +158,28 @@ paths:
             $ref: '#/definitions/Skills'
         '503':
           description: Service Unavailable
+  /pokemons/supports:
+    get:
+      tags:
+        - Battle
+      summary: 相性補完リスト取得
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: supports response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/Supports'
+        '503':
+          description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/soldiers':
     get:
       tags:
-        - Training
+        - Battle
       summary: 対戦用育成済みポケモン一覧取得
       parameters:
         - name: zukanNo
@@ -191,7 +207,7 @@ paths:
           description: Service Unavailable
     post:
       tags:
-        - Training
+        - Battle
       summary: 対戦用育成済みポケモン登録
       parameters:
         - name: zukanNo
@@ -223,7 +239,7 @@ paths:
   '/pokemons/{zukanNo}/{subNo}/soldiers/{soldierId}':
     get:
       tags:
-        - Training
+        - Battle
       summary: 対戦用育成済みポケモン取得
       parameters:
         - name: zukanNo
@@ -255,7 +271,7 @@ paths:
           description: Service Unavailable
     put:
       tags:
-        - Training
+        - Battle
       summary: 対戦用育成済みポケモン更新
       parameters:
         - name: zukanNo
@@ -292,7 +308,7 @@ paths:
           description: Service Unavailable
     delete:
       tags:
-        - Training
+        - Battle
       summary: 対戦用育成済みポケモン削除
       parameters:
         - name: zukanNo
@@ -321,7 +337,7 @@ paths:
   '/pokemons/{zukanNo}/{subNo}/roleTargets':
     get:
       tags:
-        - Training
+        - Battle
       summary: 役割対象一覧取得
       operationId: ''
       parameters:
@@ -348,7 +364,7 @@ paths:
           description: Service Unavailable
     post:
       tags:
-        - Training
+        - Battle
       summary: 役割対象登録
       parameters:
         - name: zukanNo
@@ -380,7 +396,7 @@ paths:
   '/pokemons/{zukanNo}/{subNo}/roleTargets/{targetId}':
     put:
       tags:
-        - Training
+        - Battle
       summary: 役割対象更新
       parameters:
         - name: zukanNo
@@ -414,7 +430,7 @@ paths:
           description: Service Unavailable
     delete:
       tags:
-        - Training
+        - Battle
       summary: 役割対象削除
       parameters:
         - name: zukanNo
@@ -437,84 +453,40 @@ paths:
           description: Success
         '503':
           description: Service Unavailable
-  /pokemons/supports:
+  /pokemons/ranking/fireindex:
     get:
       tags:
         - Battle
-      summary: 相性補完リスト取得
+      summary: 火力指数ランキング
       operationId: ''
       parameters: []
       responses:
         '200':
-          description: supports response
+          description: fireindex response
           schema:
             type: array
             items:
               type: array
               items:
-                $ref: '#/definitions/Supports'
+                $ref: '#/definitions/FireIndex'
         '503':
           description: Service Unavailable
-    post:
+  /pokemons/ranking/enduranceindex:
+    get:
       tags:
         - Battle
-      summary: 相性補完リスト取得
+      summary: 耐久指数ランキング
       operationId: ''
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/Supports'
+      parameters: []
       responses:
         '200':
-          description: Success
-        '400':
-          description: Validation Error
+          description: enduranceindex response
           schema:
-            type: object
-        '503':
-          description: Service Unavailable
-  '/pokemons/supports/{supportId}':
-    put:
-      tags:
-        - Battle
-      summary: 相性補完更新
-      operationId: ''
-      parameters:
-        - name: supportId
-          in: path
-          required: true
-          type: integer
-          format: int64
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/Supports'
-      responses:
-        '200':
-          description: Success
-        '400':
-          description: Validation Error
-          schema:
-            type: object
-        '503':
-          description: Service Unavailable
-    delete:
-      tags:
-        - Battle
-      summary: 相性補完削除
-      operationId: ''
-      parameters:
-        - name: supportId
-          in: path
-          required: true
-          type: integer
-          format: int64
-      responses:
-        '200':
-          description: supports response
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/Enduranceindex'
         '503':
           description: Service Unavailable
 definitions:
@@ -674,6 +646,36 @@ definitions:
       name2:
         type: string
         example: ナットレイ
+  FireIndex:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 9
+      subNo:
+        type: integer
+        example: 3
+      name:
+        type: string
+        example: メガリザードンX
+      skillName:
+        type: string
+        example: フレアドライブ
+      index:
+        type: integer
+        example: 46800
+  Enduranceindex:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 9
+      subNo:
+        type: integer
+        example: 3
+      name:
+        type: string
+        example: メガリザードンX
   Soldier:
     type: object
     properties:

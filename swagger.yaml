@@ -202,7 +202,7 @@ paths:
             items:
               type: array
               items:
-                $ref: '#/definitions/Soldier'
+                $ref: '#/definitions/Soldiers'
         '503':
           description: Service Unavailable
     post:
@@ -676,6 +676,15 @@ definitions:
       name:
         type: string
         example: メガリザードンX
+  Soldiers:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+      subNo:
+        type: integer
+      soldierId:
+        type: integer
   Soldier:
     type: object
     properties:
@@ -752,9 +761,6 @@ definitions:
         type: integer
         example: 1
       subNo:
-        type: integer
-        example: 1
-      soldierId:
         type: integer
         example: 1
       personality:

@@ -316,6 +316,179 @@ paths:
           description: Success
         '503':
           description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/roleTargets':
+    get:
+      tags:
+        - Battle
+      summary: 役割対象一覧取得
+      operationId: ''
+      parameters:
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: roleTargets response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RoleTarget'
+        '503':
+          description: Service Unavailable
+    post:
+      tags:
+        - Battle
+      summary: 役割対象登録
+      parameters:
+        - name: zukanNo
+          in: path
+          description: 図鑑No
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          description: サブNo
+          required: true
+          type: integer
+          format: int64
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RoleTarget'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Validation Error
+          schema:
+            type: object
+        '503':
+          description: Service Unavailable
+  '/pokemons/{zukanNo}/{subNo}/roleTargets/{targetId}':
+    put:
+      tags:
+        - Battle
+      summary: 役割対象更新
+      parameters:
+        - name: zukanNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: targetId
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RoleTarget'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Validation Error
+          schema:
+            type: object
+        '503':
+          description: Service Unavailable
+    delete:
+      tags:
+        - Battle
+      summary: 役割対象削除
+      parameters:
+        - name: zukanNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: subNo
+          in: path
+          required: true
+          type: integer
+          format: int64
+        - name: targetId
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+        '503':
+          description: Service Unavailable
+  /pokemons/supports:
+    get:
+      tags:
+        - Battle
+      summary: 相性補完リスト取得
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: supports response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/Supports'
+        '503':
+          description: Service Unavailable
+  /pokemons/ranking/fireindex:
+    get:
+      tags:
+        - Battle
+      summary: 火力指数ランキング
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: fireindex response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/FireIndex'
+        '503':
+          description: Service Unavailable
+  /pokemons/ranking/enduranceindex:
+    get:
+      tags:
+        - Battle
+      summary: 耐久指数ランキング
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: enduranceindex response
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/Enduranceindex'
+        '503':
+          description: Service Unavailable
 definitions:
   Pokemons:
     type: array
@@ -461,6 +634,48 @@ definitions:
       migawarikantsu:
         type: string
         example: 通常
+  Supports:
+    type: object
+    properties:
+      supportId:
+        type: integer
+        example: 1
+      name1:
+        type: string
+        example: カプ・レヒレ
+      name2:
+        type: string
+        example: ナットレイ
+  FireIndex:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 9
+      subNo:
+        type: integer
+        example: 3
+      name:
+        type: string
+        example: メガリザードンX
+      skillName:
+        type: string
+        example: フレアドライブ
+      index:
+        type: integer
+        example: 46800
+  Enduranceindex:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 9
+      subNo:
+        type: integer
+        example: 3
+      name:
+        type: string
+        example: メガリザードンX
   Soldiers:
     type: object
     properties:
@@ -602,3 +817,15 @@ definitions:
       asp:
         type: integer
         example: 106
+  RoleTarget:
+    type: object
+    properties:
+      zukanNo:
+        type: integer
+        example: 1
+      subNo:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: フシギダネ

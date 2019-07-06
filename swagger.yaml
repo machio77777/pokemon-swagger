@@ -104,6 +104,26 @@ paths:
             $ref: '#/definitions/Quality'
         '503':
           description: Service Unavailable
+  '/qualities/{qualityId}/pokemons':
+    get:
+      tags:
+        - Master
+      summary: 特性に紐づくポケモン一覧取得
+      operationId: ''
+      parameters:
+        - name: qualityId
+          in: path
+          description: 特性ID
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: quality response
+          schema:
+            $ref: '#/definitions/Pokemons'
+        '503':
+          description: Service Unavailable
   /skills:
     get:
       tags:
@@ -142,6 +162,26 @@ paths:
           description: skill response
           schema:
             $ref: '#/definitions/Skill'
+        '503':
+          description: Service Unavailable
+  '/skills/{skillId}/pokemons':
+    get:
+      tags:
+        - Master
+      summary: 技に紐づくポケモン一覧取得
+      operationId: ''
+      parameters:
+        - name: skillId
+          in: path
+          description: 技ID
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: skill response
+          schema:
+            $ref: '#/definitions/Pokemons'
         '503':
           description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/skills':

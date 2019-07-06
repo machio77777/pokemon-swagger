@@ -24,7 +24,19 @@ paths:
         - Master
       summary: ポケモン図鑑一覧取得
       operationId: ''
-      parameters: []
+      parameters: 
+        - name: generation
+          in: query
+          description: 世代
+          required: false
+          type: integer
+          format: int64
+        - name: megaFlg
+          in: query
+          description: メガシンカフラグ
+          required: false
+          type: integer
+          format: int64
       responses:
         '200':
           description: pokemons response
@@ -98,7 +110,13 @@ paths:
         - Master
       summary: 技一覧取得
       operationId: ''
-      parameters: []
+      parameters: 
+        - name: typeId
+          in: query
+          description: 属性ID
+          required: false
+          type: integer
+          format: int64
       responses:
         '200':
           description: skills response
@@ -145,9 +163,9 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: skillId
+        - name: typeId
           in: query
-          description: 技ID
+          description: 属性ID
           required: false
           type: integer
           format: int64
@@ -343,10 +361,16 @@ definitions:
       name:
         type: string
         example: フシギダネ
-      type1:
+      typeId1:
+        type: integer
+        example: 1
+      typeId2:
+        type: integer
+        example: 2
+      typeName1:
         type: string
         example: くさ
-      type2:
+      typeName2:
         type: string
         example: どく
       quality1:
@@ -413,6 +437,18 @@ definitions:
         skillName:
           type: string
           example: アームハンマー
+        typeId:
+          type: integer
+          example: 1
+        typeName:
+          type: string
+          example: ノーマル
+        power:
+          type: integer
+          example: 100
+        effect:
+          type: string
+          example:  相手は逃げたり、交代できなくなる。自分が場を離れると効果は消える。
   Skill:
     type: object
     properties:

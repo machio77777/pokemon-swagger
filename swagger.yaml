@@ -227,7 +227,7 @@ paths:
         '200':
           description: qualities response
           schema:
-            $ref: '#/definitions/PokemonHp'
+            $ref: '#/definitions/PokemonValue'
         '503':
           description: Service Unavailable
   '/ranking/at':
@@ -241,7 +241,7 @@ paths:
         '200':
           description: qualities response
           schema:
-            $ref: '#/definitions/PokemonAt'
+            $ref: '#/definitions/PokemonValue'
         '503':
           description: Service Unavailable
   '/ranking/df':
@@ -255,7 +255,7 @@ paths:
         '200':
           description: qualities response
           schema:
-            $ref: '#/definitions/PokemonDf'
+            $ref: '#/definitions/PokemonValue'
         '503':
           description: Service Unavailable
   '/ranking/sa':
@@ -269,7 +269,7 @@ paths:
         '200':
           description: qualities response
           schema:
-            $ref: '#/definitions/PokemonSa'
+            $ref: '#/definitions/PokemonValue'
         '503':
           description: Service Unavailable
   '/ranking/sd':
@@ -283,7 +283,7 @@ paths:
         '200':
           description: qualities response
           schema:
-            $ref: '#/definitions/PokemonSd'
+            $ref: '#/definitions/PokemonValue'
         '503':
           description: Service Unavailable
   '/ranking/sp':
@@ -297,7 +297,7 @@ paths:
         '200':
           description: qualities response
           schema:
-            $ref: '#/definitions/PokemonSp'
+            $ref: '#/definitions/PokemonValue'
         '503':
           description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/soldiers':
@@ -621,7 +621,7 @@ definitions:
       migawarikantsu:
         type: string
         example: 通常
-  PokemonHp:
+  PokemonValue:
     type: array
     items:
       type: object
@@ -635,92 +635,7 @@ definitions:
         name:
           type: string
           example: フシギダネ
-        hp:
-          type: integer
-          example: 50
-  PokemonAt:
-    type: array
-    items:
-      type: object
-      properties:
-        zukanNo:
-          type: integer
-          example: 1
-        subNo:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: フシギダネ
-        at:
-          type: integer
-          example: 50
-  PokemonDf:
-    type: array
-    items:
-      type: object
-      properties:
-        zukanNo:
-          type: integer
-          example: 1
-        subNo:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: フシギダネ
-        df:
-          type: integer
-          example: 50
-  PokemonSa:
-    type: array
-    items:
-      type: object
-      properties:
-        zukanNo:
-          type: integer
-          example: 1
-        subNo:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: フシギダネ
-        sa:
-          type: integer
-          example: 50
-  PokemonSd:
-    type: array
-    items:
-      type: object
-      properties:
-        zukanNo:
-          type: integer
-          example: 1
-        subNo:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: フシギダネ
-        sd:
-          type: integer
-          example: 50
-  PokemonSp:
-    type: array
-    items:
-      type: object
-      properties:
-        zukanNo:
-          type: integer
-          example: 1
-        subNo:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: フシギダネ
-        sp:
+        value:
           type: integer
           example: 50
   Soldiers:

@@ -216,6 +216,90 @@ paths:
             $ref: '#/definitions/Skills'
         '503':
           description: Service Unavailable
+  '/ranking/hp':
+    get:
+      tags:
+        - Master
+      summary: ポケモン一覧取得(HP種族値昇順)
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/PokemonHp'
+        '503':
+          description: Service Unavailable
+  '/ranking/at':
+    get:
+      tags:
+        - Master
+      summary: ポケモン一覧取得(AT種族値昇順)
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/PokemonAt'
+        '503':
+          description: Service Unavailable
+  '/ranking/df':
+    get:
+      tags:
+        - Master
+      summary: ポケモン一覧取得(DF種族値昇順)
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/PokemonDf'
+        '503':
+          description: Service Unavailable
+  '/ranking/sa':
+    get:
+      tags:
+        - Master
+      summary: ポケモン一覧取得(SA種族値昇順)
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/PokemonSa'
+        '503':
+          description: Service Unavailable
+  '/ranking/sd':
+    get:
+      tags:
+        - Master
+      summary: ポケモン一覧取得(SD種族値昇順)
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/PokemonSd'
+        '503':
+          description: Service Unavailable
+  '/ranking/sp':
+    get:
+      tags:
+        - Master
+      summary: ポケモン一覧取得(SP種族値昇順)
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/PokemonSp'
+        '503':
+          description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/soldiers':
     get:
       tags:
@@ -537,6 +621,108 @@ definitions:
       migawarikantsu:
         type: string
         example: 通常
+  PokemonHp:
+    type: array
+    items:
+      type: object
+      properties:
+        zukanNo:
+          type: integer
+          example: 1
+        subNo:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: フシギダネ
+        hp:
+          type: integer
+          example: 50
+  PokemonAt:
+    type: array
+    items:
+      type: object
+      properties:
+        zukanNo:
+          type: integer
+          example: 1
+        subNo:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: フシギダネ
+        at:
+          type: integer
+          example: 50
+  PokemonDf:
+    type: array
+    items:
+      type: object
+      properties:
+        zukanNo:
+          type: integer
+          example: 1
+        subNo:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: フシギダネ
+        df:
+          type: integer
+          example: 50
+  PokemonSa:
+    type: array
+    items:
+      type: object
+      properties:
+        zukanNo:
+          type: integer
+          example: 1
+        subNo:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: フシギダネ
+        sa:
+          type: integer
+          example: 50
+  PokemonSd:
+    type: array
+    items:
+      type: object
+      properties:
+        zukanNo:
+          type: integer
+          example: 1
+        subNo:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: フシギダネ
+        sd:
+          type: integer
+          example: 50
+  PokemonSp:
+    type: array
+    items:
+      type: object
+      properties:
+        zukanNo:
+          type: integer
+          example: 1
+        subNo:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: フシギダネ
+        sp:
+          type: integer
+          example: 50
   Soldiers:
     type: object
     properties:

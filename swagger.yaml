@@ -300,6 +300,20 @@ paths:
             $ref: '#/definitions/PokemonValue'
         '503':
           description: Service Unavailable
+  '/character':
+    get:
+      tags:
+        - Master
+      summary: 性格一覧取得
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/Characters'
+        '503':
+          description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/soldiers':
     get:
       tags:
@@ -638,6 +652,32 @@ definitions:
         value:
           type: integer
           example: 50
+  Characters:
+    type: array
+    items:
+      type: object
+      properties:
+        charId:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: さみしがり
+        at:
+          type: integer
+          example: 1
+        df:
+          type: integer
+          example: 1
+        sa:
+          type: integer
+          example: 1
+        sd:
+          type: integer
+          example: 1
+        sp:
+          type: integer
+          example: 1
   Soldiers:
     type: object
     properties:

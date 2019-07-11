@@ -314,6 +314,20 @@ paths:
             $ref: '#/definitions/Characters'
         '503':
           description: Service Unavailable
+  '/type':
+    get:
+      tags:
+        - Master
+      summary: 属性一覧取得
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: qualities response
+          schema:
+            $ref: '#/definitions/Types'
+        '503':
+          description: Service Unavailable
   '/pokemons/{zukanNo}/{subNo}/soldiers':
     get:
       tags:
@@ -678,6 +692,20 @@ definitions:
         sp:
           type: integer
           example: 1
+  Types:
+    type: array
+    items:
+      type: object
+      properties:
+        typeId:
+          type: integer
+          example: 1
+        typeName1:
+          type: string
+          example: ノーマル
+        typeName2:
+          type: string
+          example: ノ
   Soldiers:
     type: object
     properties:
